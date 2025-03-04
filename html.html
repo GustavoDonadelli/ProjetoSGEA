@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGEA - Sistema de Gestão de Eventos Acadêmicos</title>
+    <style>
+        :root {
+            --primary: #3498db;
+            --primary-dark: #2980b9;
+            --secondary: #2ecc71;
+            --secondary-dark: #27ae60;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --light: #f5f5f5;
+            --dark: #333;
+            --gray: #95a5a6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            text-decoration: none;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--secondary-dark);
+        }
+        
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--gray);
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        
+        .card-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px 20px;
+            font-weight: bold;
+        }
+        
+        .card-body {
+            padding: 20px;
+        }
+        
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .table th, .table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .table th {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .table tr:hover {
+            background-color: #f1f1f1;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 600px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .close:hover {
+            color: var(--dark);
+        }
+        
+        .tab-container {
+            margin-bottom: 30px;
+        }
+        
+        .tab-buttons {
+            display: flex;
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--gray);
+        }
+        
+        .tab-btn {
+            padding: 10px 20px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 16px;
+            opacity: 0.7;
+        }
+        
+        .tab-btn.active {
+            opacity: 1;
+            border-bottom: 3px solid var(--primary);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .certificate {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+            border: 15px solid var(--primary);
+            text-align: center;
+            background-color: white;
+        }
+        
+        .certificate h1 {
+            font-size: 36px;
+            margin-bottom: 30px;
+            color: var(--primary);
+        }
+        
+        .certificate p {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        
+        .certificate .signature {
+            margin-top: 50px;
+            font-style: italic;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            color: white;
+            font-size: 14px;
+        }
+        
+        .badge-success {
+            background-color: var(--secondary);
+        }
+        
+        .badge-warning {
+            background-color: var(--warning);
+        }
+        
+        .badge-danger {
+            background-color: var(--danger);
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">SGEA</div>
+                <div class="nav-links">
+                    <a href="#" onclick="showPanel('login')">Área de Login</a>
+                    <a href="#" onclick="showPanel('sobre')">Sobre o Sistema</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Painel de Login -->
+        <div id="login" class="card">
+            <div class="card-header">Acesso ao Sistema</div>
+            <div class="card-body">
+                <div class="tab-container">
+                    <div class="tab-buttons">
+                        <button class="tab-btn active" onclick="openTab(event, 'tab-aluno')">Aluno</button>
+                        <button class="tab-btn" onclick="openTab(event, 'tab-coordenador')">Coordenador</button>
+                        <button class="tab-btn" onclick="openTab(event, 'tab-diretor')">Diretor</button>
+                    </div>
+                    
+                    <div id="tab-aluno" class="tab-content active">
+                        <form onsubmit="loginAluno(event)">
+                            <div class="form-group">
+                                <label>Usuário:</label>
+                                <input type="text" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Senha:</label>
+                                <input type="password" class="form-control" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Entrar</button>
+                        </form>
+                    </div>
+                    
+                    <div id="tab-coordenador" class="tab-content">
+                        <form onsubmit="loginCoordenador(event)">
+                            <div class="form-group">
+                                <label>Usuário:</label>
+                                <input type="text" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Senha:</label>
+                                <input type="password" class="form-control" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Entrar</button>
+                        </form>
+                    </div>
+                    
+                    <div id="tab-diretor" class="tab-content">
+                        <form onsubmit="loginDiretor(event)">
+                            <div class="form-group">
+                                <label>Usuário:</label>
+                                <input type="text" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Senha:</label>
+                                <input type="password" class="form-control" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Entrar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Painel do Diretor -->
+        <div id="painel-diretor" style="display: none;">
+            <h2>Painel do Diretor Acadêmico</h2>
+            <p>Bem-vindo, <span id="nome-diretor">Diretor</span>!</p>
+            
+            <div class="card">
+                <div class="card-header">Gerenciar Coordenadores</div>
+                <div class="card-body">
+                    <button class="btn btn-primary" onclick="abrirModalCadastrarCoordenador()">Cadastrar Novo Coordenador</button>
+                    
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>Departamento</th>
+                                <th>Email</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lista-coordenadores">
+                            <tr>
+                                <td>C001</td>
+                                <td>Ana Silva</td>
+                                <td>Tecnologia</td>
+                                <td>ana.silva@email.com</td>
+                                <td>
+                                    <button class="btn btn-primary" onclick="editarCoordenador('C001')">Editar</button>
+                                    <button class="btn btn-danger" onclick="removerCoordenador('C001')">Remover</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>C002</td>
+                                <td>Carlos Souza</td>
+                                <td>Engenharia</td>
+                                <td>carlos.souza@email.com</td>
+                                <td>
+                                    <button class="btn btn-primary" onclick="editarCoordenador('C002')">Editar</button>
+                                    <button class="btn btn-danger" onclick="removerCoordenador('C002')">Remover</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <button class="btn btn-danger" style="margin-top: 20px;" onclick="logout()">Sair</button>
+        </div>
+        
+        <!-- Painel do Coordenador -->
+        <div id="painel-coordenador" style="display: none;">
+            <h2>Painel do Coordenador Acadêmico</h2>
+            <p>Bem-vindo, <span id="nome-coordenador">Coordenador</span>!</p>
+            
+            <div class="card">
+                <div class="card-header">Gerenciar Eventos</div>
+                <div class="card-body">
+                    <button class="btn btn-primary" onclick="abrirModalCadastrarEvento()">Cadastrar Novo Evento</button>
+                    
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>Data</th>
+                                <th>Local</th>
+                                <th>Horário</th>
+                                <th>Código</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lista-eventos">
+                            <tr>
+                                <td>E001</td>
+                                <td>Palestra sobre IA</td>
+                                <td>10/03/2025</td>
+                                <td>Auditório Principal</td>
+                                <td>14:00 - 16:00</td>
+                                <td>AI2025</td>
+                                <td><span class="badge badge-warning">Agendado</span></td>
+                                <td>
+                                    <button class="btn btn-primary" onclick="editarEvento('E001')">Editar</button>
+                                    <button class="btn btn-secondary" onclick="listarInscritos('E001')">Inscritos</button>
+                                    <button class="btn btn-secondary" onclick="iniciarEvento('E001')">Iniciar</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>E002</td>
+                                <td>Workshop de Programação</td>
+                                <td>15/03/2025</td>
+                                <td>Laboratório 3</td>
+                                <td>09:00 - 12:00</td>
+                                <td>PROG25</td>
+                                <td><span class="badge badge-success">Em andamento</span></td>
+                                <td>
+                                    <button class="btn btn-primary" onclick="editarEvento('E002')">Editar</button>
+                                    <button class="btn btn-secondary" onclick="listarInscritos('E002')">Inscritos</button>
+                                    <button class="btn btn-danger" onclick="encerrarEvento('E002')">Encerrar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div id="inscritos-container" style="display: none;" class="card">
+                <div class="card-header">Alunos Inscritos - <span id="evento-titulo">Evento</span></div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Matrícula</th>
+                                <th>Nome</th>
+                                <th>Curso</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lista-inscritos">
+                            <tr>
+                                <td>A20215001</td>
+                                <td>Pedro Santos</td>
+                                <td>Ciência da Computação</td>
+                                <td><span class="badge badge-success">Presente</span></td>
+                            </tr>
+                            <tr>
+                                <td>A20215002</td>
+                                <td>Maria Lima</td>
+                                <td>Sistemas de Informação</td>
+                                <td><span class="badge badge-warning">Não confirmado</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button class="btn btn-secondary" onclick="fecharListaInscritos()">Fechar</button>
+                </div>
+            </div>
+            
+            <button class="btn btn-danger" style="margin-top: 20px;" onclick="logout()">Sair</button>
+        </div>
+        
+        <!-- Painel do Aluno -->
+        <div id="painel-aluno" style="display: none;">
+            <h2>Painel do Aluno</h2>
+            <p>Bem-vindo, <span id="nome-aluno">Aluno</span>!</p>
+            
+            <div class="card">
+                <div class="card-header">Eventos Disponíveis</div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Data</th>
+                                <th>Local</th>
+                                <th>Horário</th>
+                                <th>Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lista-eventos-disponiveis">
+                            <tr>
+                                <td>Palestra sobre IA</td>
+                                <td>10/03/2025</td>
+                                <td>Auditório Principal</td>
+                                <td>14:00 - 16:00</td>
+                                <td>
+                                    <button class="btn btn-primary" onclick="inscreverEvento('E001')">Inscrever-se</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Workshop de Programação</td>
+                                <td>15/03/2025</td>
+                                <td>Laboratório 3</td>
+                                <td>09:00 - 12:00</td>
+                                <td>
+                                    <button class="btn btn-secondary" disabled>Inscrito</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">Meus Eventos</div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Data</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lista-meus-eventos">
+                            <tr>
+                                <td>Workshop de Programação</td>
+                                <td>15/03/2025</td>
+                                <td><span class="badge badge-warning">Não confirmado</span></td>
+                                <td>
+                                    <button class="btn btn-primary" onclick="confirmarPresenca('E002')">Confirmar Presença</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Seminário de Redes</td>
+                                <td>05/03/2025</td>
+                                <td><span class="badge badge-success">Presença confirmada</span></td>
+                                <td>
+                                    <button class="btn btn-secondary" onclick="baixarCertificado('E003')">Baixar Certificado</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <button class="btn btn-danger" style="margin-top: 20px;" onclick="logout()">Sair</button>
+        </div>
+        
+        <!-- Sobre o Sistema -->
+        <div id="sobre" style="display: none;" class="card">
+            <div class="card-header">Sobre o Sistema</div>
+            <div class="card-body">
+                <h3>Sistema de Gestão de Eventos Acadêmicos</h3>
+                <p>O SGEA é uma plataforma completa para gestão de eventos acadêmicos, permitindo:</p>
+                <ul>
+                    <li>Cadastro e gerenciamento de coordenadores pelo diretor acadêmico</li>
+                    <li>Cadastro e gerenciamento de eventos pelos coordenadores</li>
+                    <li>Inscrição de alunos em eventos</li>
+                    <li>Confirmação de presença através de código</li>
+                    <li>Emissão de certificados</li>
+                </ul>
+                <p>Versão 1.0</p>
+            </div>
+        </div>
+        
+        <!-- Modal de Cadastro de Coordenador -->
+        <div id="modal-cadastrar-coordenador" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="fecharModal('modal-cadastrar-coordenador')">&times;</span>
+                <h3>Cadastrar Novo Coordenador</h3>
+                <form onsubmit="cadastrarCoordenador(event)">
+                    <div class="form-group">
+                        <label>Nome:</label>
+                        <input type="text" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Departamento:</label>
+                        <input type="text" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email:</label>
+                        <input type="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Senha:</label>
+                        <input type="password" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Cadastrar</button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Modal de Cadastro de Evento -->
+        <div id="modal-cadastrar-evento" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="fecharModal('modal-cadastrar-evento')">&times;</span>
+                <h3>Cadastrar Novo Evento</h3>
+                <form onsubmit="cadastrarEvento(event)">
+                    <div class="form-group">
+                        <label>Nome do Evento:</label>
+                        <input type="text" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Descrição:</label>
+                        <textarea class="form-control" rows="3" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Data:</label>
+                        <input type="date" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Local:</label>
+                        <input type="text" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Horário de Início:</label>
+                        <input type="time" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Horário de Término:</label>
+                        <input type="time" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Capacidade:</label>
+                        <input type="number" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Código de Confirmação:</label>
+                        <input type="text" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Cadastrar</button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Modal de Confirmação de Presença -->
+        <div id="modal-confirmar-presenca" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="fecharModal('modal-confirmar-presenca')">&times;</span>
+                <h3>Confirmar Presença</h3>
+                <p>Evento: <span id="evento-confirmar">Workshop de Programação</span></p>
+                <form onsubmit="enviarCodigoPresenca(event)">
+                    <div class="form-group">
+                        <label>Digite o código fornecido pelo coordenador:</label>
+                        <input type="text" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Confirmar</button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Modal de Certificado -->
+        <div id="modal-certificado" class="modal">
+            <div class="modal-content" style="width: 90%; max-width: 900px;">
+                <span class="close" onclick="fecharModal('modal-certificado')">&times;</span>
+                <div class="certificate">
+                    <h1>CERTIFICADO</h1>
+                    <p>Certificamos que</p>
+                    <h2 id="cert-nome">NOME DO ALUNO</h2>
+                    <p>participou do evento</p>
+                    <h3 id="cert-evento">NOME DO EVENTO</h3>
+                    <p>realizado em <span id="cert-data">DATA DO EVENTO</span>, com carga horária de <span id="cert-horas">X</span> horas.</p>
+                    
+                    <div class="signature">
+                        <p>______________________________</p>
+                        <p id="cert-coordenador">Nome do Coordenador</p>
+                        <p>Coordenador do Evento</p>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 20px;">
+                    <button class="btn btn-primary" onclick="imprimirCertificado()">Imprimir/Salvar PDF</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Função para alternar entre tabs
+        function openTab(evt, tabId) {
+            const tabContents = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove("active");
+            }
+            
+            const tabButtons = document.getElementsByClassName("tab-btn");
+            for (let i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove("active");
+            }
+            
+            document.getElementById(tabId).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+        
+        // Função para mostrar painéis específicos
+        function showPanel(panelId) {
+            const panels = ["login", "painel-diretor", "painel-coordenador", "painel-aluno", "sobre"];
+            
+            panels.forEach(p => {
+                document.getElementById(p).style.display = "none";
+            });
+            
+            document.getElementById(panelId).style.display = "block";
+        }
+        
+        // Funções de login
+        function loginAluno(event) {
+            event.preventDefault();
+            document.getElementById("nome-aluno").innerText = "João Silva";
+            showPanel("painel-aluno");
+        }
+        
+        function loginCoordenador(event) {
+            event.preventDefault();
+            document.getElementById("nome-coordenador").innerText = "Ana Silva";
+            showPanel("painel-coordenador");
+        }
+        
+        function loginDiretor(event) {
+            event.preventDefault();
+            document.getElementById("nome-diretor").innerText = "Roberto Martins";
+            showPanel("painel-diretor");
+        }
+        
+        function logout() {
+            showPanel("login");
+        }
+        
+        // Funções para modais
+        function abrirModal(modalId) {
+            document.getElementById(modalId).style.display = "block";
+        }
+        
+        function fecharModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
+        }
+        
+        function abrirModalCadastrarCoordenador() {
+            abrirModal("modal-cadastrar-coordenador");
+        }
+        
+        function abrirModalCadastrarEvento() {
+            abrirModal("modal-cadastrar-evento");
+        }
+        
+        // Funções do Diretor
+        function cadastrarCoordenador(event) {
+            event.preventDefault();
+            alert("Coordenador cadastrado com sucesso!");
+            fecharModal("modal-cadastrar-coordenador");
+        }
+        
+        function editarCoordenador(id) {
+            alert("Editar coordenador " + id);
+        }
+        
+        function removerCoordenador(id) {
+            if (confirm("Deseja realmente remover o coordenador " + id + "?")) {
+                alert("Coordenador removido com sucesso!");
+            }
+        }
+        
+        // Funções do Coordenador
+        function cadastrarEvento(event) {
+            event.preventDefault();
+            alert("Evento cadastrado com sucesso!");
+            fecharModal("modal-cadastrar-evento");
+        }
+        
+        function editarEvento(id) {
+            alert("Editar evento " + id);
+        }
+        
+        function iniciarEvento(id) {
+            alert("Evento " + id + " iniciado!");
+        }
+        
+        function encerrarEvento(id) {
+            if (confirm("Deseja realmente encerrar o evento " + id + "?")) {
+                alert("Evento encerrado com sucesso!");
+            }
+        }
+        
+        function listarInscritos(id) {
+            document.getElementById("evento-titulo").innerText = id === "E001" ? "Palestra sobre IA" : "Workshop de Programação";
+            document.getElementById("inscritos-container").style.display = "block";
+        }
+        
+        function fecharListaInscritos() {
+            document.getElementById("inscritos-container").style.display = "none";
+        }
+        
+        // Funções do Aluno
+        function inscreverEvento(id) {
+            alert("Inscrição realizada com sucesso!");
+        }
+        
+        function confirmarPresenca(id) {
+            document.getElementById("evento-confirmar").innerText = "Workshop de Programação";
+            abrirModal("modal-confirmar-presenca");
+        }
+        
+        function enviarCodigoPresenca(event) {
+            event.preventDefault();
+            const codigo = event.target.querySelector("input").value;
+            if (codigo === "PROG25") {
+                alert("Presença confirmada com sucesso!");
+                fecharModal("modal-confirmar-presenca");
+                // Atualizar a interface para mostrar presença confirmada
+                const eventosRows = document.querySelectorAll("#lista-meus-eventos tr");
+                eventosRows[0].querySelector("td:nth-child(3) span").className = "badge badge-success";
+                eventosRows[0].querySelector("td:nth-child(3) span").innerText = "Presença confirmada";
+                eventosRows[0].querySelector("td:nth-child(4) button").innerText = "Baixar Certificado";
+                eventosRows[0].querySelector("td:nth-child(4) button").onclick = function() { baixarCertificado('E002'); };
+            } else {
+                alert("Código inválido. Tente novamente.");
+            }
+        }
+        
+        function baixarCertificado(id) {
+            // Preencher informações do certificado
+            let eventoNome = id === 'E002' ? 'Workshop de Programação' : 'Seminário de Redes';
+            let eventoData = id === 'E002' ? '15/03/2025' : '05/03/2025';
+            let eventoHoras = id === 'E002' ? '3' : '2';
+            let coordenador = id === 'E002' ? 'Ana Silva' : 'Carlos Souza';
+            
+            document.getElementById("cert-nome").innerText = "João Silva";
+            document.getElementById("cert-evento").innerText = eventoNome;
+            document.getElementById("cert-data").innerText = eventoData;
+            document.getElementById("cert-horas").innerText = eventoHoras;
+            document.getElementById("cert-coordenador").innerText = coordenador;
+            
+            abrirModal("modal-certificado");
+        }
+        
+        function imprimirCertificado() {
+            window.print();
+        }
+        
+        // Inicializar a página mostrando a tela de login
+        window.onload = function() {
+            showPanel("login");
+        };
+        
+        // Fechar modais quando clicar fora deles
+        window.onclick = function(event) {
+            const modals = document.getElementsByClassName("modal");
+            for (let i = 0; i < modals.length; i++) {
+                if (event.target === modals[i]) {
+                    modals[i].style.display = "none";
+                }
+            }
+        };
+    </script>
+</body>
+</html>
