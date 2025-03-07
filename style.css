@@ -1,0 +1,152 @@
+/* Estilos Base */
+:root {
+    --primary: #2c3e50;
+    --secondary: #3498db;
+    --success: #27ae60;
+    --danger: #e74c3c;
+    --light: #ecf0f1;
+    --dark: #2c3e50;
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: var(--light);
+}
+
+/* Container Principal */
+.auth-container {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    width: 400px;
+    overflow: hidden;
+}
+
+/* Cabeçalho com Abas */
+.auth-tabs {
+    display: flex;
+    border-bottom: 2px solid #eee;
+}
+
+.auth-tab {
+    flex: 1;
+    padding: 1.2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition);
+    background: #f8f9fa;
+    border: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.auth-tab.active {
+    background: white;
+    color: var(--secondary);
+    border-bottom: 3px solid var(--secondary);
+}
+
+/* Conteúdo dos Formulários */
+.auth-content {
+    padding: 2rem;
+}
+
+.auth-form {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.auth-form.active {
+    display: block;
+}
+
+/* Estilos do Formulário */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--dark);
+    font-weight: 500;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.form-control:focus {
+    border-color: var(--secondary);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(52,152,219,0.1);
+}
+
+.btn {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-primary {
+    background: var(--secondary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #2980b9;
+}
+
+.btn-success {
+    background: var(--success);
+    color: white;
+}
+
+.links {
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+.links a {
+    color: var(--secondary);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.links a:hover {
+    text-decoration: underline;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsivo */
+@media (max-width: 480px) {
+    .auth-container {
+        width: 90%;
+        margin: 1rem;
+    }
+}
