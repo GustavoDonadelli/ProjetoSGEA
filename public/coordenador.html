@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Coordenador</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/scripts.js"></script>
+</head>
+<body class="painel-container">
+    <div class="user-info">
+        <span>Bem-vindo, <span id="username"></span></span>
+        <button onclick="logout()" class="btn-logout">Sair</button>
+    </div>
+    <div class="painel-content">
+        <div class="painel-header">
+            <h1 class="painel-title">Painel do Coordenador</h1>
+            <button class="btn-painel btn-laranja" onclick="novoEvento()">+ Novo Evento</button>
+        </div>
+        <div class="painel-section">
+            <h2>Meus Eventos</h2>
+            <div class="grid-container">
+                <div class="card">
+                    <h3>Semana Acadêmica</h3>
+                    <p>Data: 15/11/2023</p>
+                    <p>Inscritos: 120</p>
+                    <div class="acao-botoes">
+                        <button class="btn-painel btn-branco" onclick="editarEvento()">Editar</button>
+                        <button class="btn-painel btn-laranja" onclick="gerenciarInscritos()">Inscritos</button>
+                        <button class="btn-painel btn-branco" onclick="excluirEvento()">Excluir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/js/scripts.js"></script>
+</body>
+</html>

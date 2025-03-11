@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Diretor</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/scripts.js"></script>
+</head>
+<body class="painel-container">
+    <div class="painel-content">
+        <div class="painel-header">
+            <h1 class="painel-title">Painel Administrativo</h1>
+        </div>
+
+        <div class="grid-container">
+            <div class="card">
+                <h3>Gestão de Usuários</h3>
+                <div class="acao-botoes">
+                    <button class="btn-painel btn-laranja" onclick="gerenciarUsuarios()">Gerenciar</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Relatórios</h3>
+                <div class="acao-botoes">
+                    <button class="btn-painel btn-laranja" onclick="gerarRelatorio()">Gerar</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Auditoria</h3>
+                <div class="acao-botoes">
+                    <button class="btn-painel btn-laranja" onclick="verLogs()">Visualizar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/js/scripts.js"></script>
+</body>
+</html>

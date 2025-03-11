@@ -1,0 +1,490 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap'); /*Importa a fonte do Google Fonts*/
+
+html, body {
+    height: 100%;
+ /*Pra medida % funcionar na div container, os elementos anteriores precisam de altura definida;}*/
+}
+* { /*Reseta o CSS para forçar o navegador a utilizar esta folha de estilo*/
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /*Coloca as bordas para serem contadas com altura e largura*/
+}
+body {
+    font-family: 'Open Sans', sans-serif; /*display=swap do Google Fonts coloca esta família enquanto a fonte carrega*/
+}
+.container {
+    display: flex; /*coloca as divs 1 e 2 lado a lado*/
+    justify-content: center; /*centralização horizontal das 2 divs dentro do container*/
+    align-items: center; /*centralização vertical dos itens, mas precisa de altura definida*/
+    height: 100%; /*Medidas com % são relativas, não dá pra usar sem uma referência (VH - Viewport Height)*/
+    width: 100%;
+    background-color: #ecf0f1; /*Cor de fundo*/
+}
+.content {
+    background-color: #ffffff; /*Cor de fundo*/
+    border-radius: 15px; /*Borda arredondada*/
+    width: 960px; /*Largura*/
+    height: 70%; /*Altura*/
+    /*display: flex; Centraliza junto com o justify-content (não precisa usar pq o first-content já usa*/
+    justify-content: space-between; /*Center|space-around|space-between - dá um espaço entre a 1ª e 2ª column*/
+    align-items: center; /*Centraliza verticalmente - funciona pq foi definido pro content uma altura*/
+    position: relative; /*O content:before pega essa posição como referência*/;
+}
+.content::before { /*pseudo elemento de content*/
+    content: ""; /*Para inserir*/
+    position: absolute; /*Para o before ficar em cima do content - precisa de uma posição relativa pra ficar height 100%*/
+    background-color: #ff9800; /*Cor de fundo*/
+    width: 40%;
+    height: 100%;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+
+    left: 0;
+}
+.title {
+    font-size: 28px;
+    font-weight: bold;
+    text-transform: capitalize; /*Coloca as iniciais em caixa alta*/
+}
+.title-primary {
+    color: #ffffff;
+}
+.title-second {
+    color: #ff9800;
+}
+.description {
+    font-size: 14px;
+    font-weight: 300; /*Fonte mais fininha importada do Google*/
+    line-height: 30px; /*Altura das linhas entre frases*/
+}
+.description-primary {
+    color: #ffffff;
+}
+.description-second {
+    color: #7f8c8d;
+}
+.btn {
+    border-radius: 15px;
+    text-transform: uppercase;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 18px 50px; /*10px altura e 50px largura */
+    cursor: pointer; /*Fica "clicável" quando o mouse passa em cima*/
+    width: 150px;
+    align-self: center;
+    margin-top: 5px;
+    border-width: 0px; /*Ou border none*/
+    margin-top: 1rem;
+}
+.btn-primary {
+    background-color: transparent;
+    border: 1px solid #ffffff;
+    transition: background-color .5s;
+}
+.btn-primary:hover {
+    background-color: #ffffff;
+    color: #ff9800;
+}
+.btn-second {
+    background-color: #ff9800;
+    border: 1px solid #ff9800;
+    transition: background-color .5s;
+}
+.btn-second:hover {
+    background-color: #fff;
+    border: 1px solid #ff9800;
+    color: #ff9800;
+}
+.first-content {
+    display: flex; /*Coloca a primeira e a segunda coluna lado a lado*/
+}
+.first-content .second-column {
+    z-index: 11;
+}
+.first-column {
+    text-align: center; /*Centraliza o texto no centro*/
+    /*flex: 1 0 auto; Flex box: (1 divide o espaço)(0 diminui)(auto tamanho inicial)*/
+    width: 40%;
+    z-index: 10; /*sobrepõe a 1ª coluna ao content:before e só funciona se definir posicionamento*/
+}
+.second-column{
+    /*flex: 2 0 auto; Flex box: (2 divide o espaço)(0 diminui)(auto tamanho inicial)*/
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.social-media {
+    margin: 1rem 0;
+}
+.link-social-media .item-social-media {
+    transition: background-color .5s;
+}
+.link-social-media:not(:first-child) {
+    margin-left: 10px;
+}
+.link-social-media:hover .item-social-media {
+    background: #ff9800;
+    color: #fff;
+    border-color: #ff9800;
+}
+.list-social-media {
+    display: flex; /*A lista de mídias sociais fica lado a lado*/
+    list-style-type: none; /*Define a lista como sem estilo*/
+}
+.item-social-media {
+    border: 1px solid #bdc3c7;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    color: #95a5a6;
+}
+.form {
+    display: flex; /*Coloca os itens do formulário*/
+    flex-direction: column; /*um abaixo do outro (default flex-direction para display: flex é row (linha)*/
+    width: 55%;
+}
+.form input {
+    height: 45px;
+    border: none;
+    background-color: #ecf0f1;
+    width: 100%;
+}
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px #ecf0f1 inset !important;
+    -webkit-text-fill-color: #000 !important;
+}
+.label-input {
+    background-color: #ecf0f1;
+    display: flex;
+    align-items: center;
+    margin: 8px;
+}
+.icon-mod {
+    color: #7f8c8d;
+    padding: 0 10px; /*0 em cima e em baixo, 5 esquerda e direita*/
+}
+
+/*second-content*/
+.second-content {
+    position: absolute; /*Faz a segunda div se sobrepor a primeira*/
+    display: flex; /*Sai da visualização, fica por baixo da primeira div*/
+}
+.second-content .first-column {
+    order: 2;
+    z-index: -1;
+}
+.second-content .second-column {
+    order: 1;
+    z-index: -1;
+}
+.password {
+    color: #5e5134;
+    font-size: 14px;
+    margin: 15px 0;
+    text-align: center;
+}
+.password::first-letter {
+    text-transform: capitalize;
+}
+
+/*Sing In e Sing Up*/
+.sign-in-js .first-content .first-column {
+    z-index: -1;
+}
+.sign-in-js .second-content .second-column {
+    z-index: 11;
+}
+.sign-in-js .second-content .first-column {
+    z-index: 13;
+}
+.sign-in-js .content::before {
+    left: 60%;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    animation: slidein .3s;
+    z-index: 12;
+}
+.sign-up-js .content::before {
+    animation: slideout .3s;
+    z-index: 12;
+}
+.sign-up-js .second-content .first-column {
+    z-index: -1;
+}
+.sign-up-js .first-content .second-column {
+    left: 11;
+}
+.sign-up-js .first-content .first-column {
+    z-index: 13;
+}
+
+/*Deslocamento do conteúdo atrás do content::before*/
+.sign-in-js .first-content .second-column {
+    z-index: -1;
+    position: relative;
+    animation: deslocamentoEsq .3s;
+}
+.sign-up-js .second-content .second.column {
+    z-index: -1;
+    position: relative;
+    animation: deslocamentoDir .3s;
+}
+
+/*Animação CSS para o conteúdo*/
+@keyframes deslocamentoEsq {
+    from {
+        left: 0;
+        opacity: 1;
+        z-index: 12;
+    }
+    25% {
+        left: -80px;
+        opacity: .5;
+    }
+    50% {
+        left: -100px;
+        opacity: .2;
+    }
+    to {
+        left: -110px;
+        opacity: 0;
+        z-index: 12;
+    }
+}
+
+@keyframes deslocamentoDir {
+    from {
+        left: 0;
+        z-index: 12;
+    }
+    25% {
+        left: 80px;
+        z-index: 12;
+    }
+    50% {
+        left: 100px;
+        z-index: 12;
+    }
+    to {
+        left: 110px;
+        z-index: -1;
+    }
+}
+
+/*Animação CSS*/
+@keyframes slidein {
+    from {
+        left: 0;
+        width: 40%;
+    }
+
+    25% {
+        left: 5%;
+        width: 50%;
+    }
+
+    50% {
+        left: 25%;
+        width: 60%;
+    }
+
+    75% {
+        left: 45%;
+        width: 50%;
+    }
+
+    to {
+        left: 60%;
+        width: 40%;
+    }
+}
+
+@keyframes slideout {
+    from {
+        left: 60%;
+        width: 40%;
+    }
+
+    25% {
+        left: 45%;
+        width: 50%;
+    }
+
+    50% {
+        left: 25%;
+        width: 60%;
+    }
+
+    75% {
+        left: 5%;
+        width: 50%;
+
+    to {
+        left: 0;
+        width: 40%;
+    }
+
+}
+}
+/*CODIGO CSS ALUNO DIRETOR E COORDENADOR*/
+/* PÁGINAS DE PAINEL - ALUNO, COORDENADOR, DIRETOR */
+.painel-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #ecf0f1;
+}
+
+.painel-content {
+    background-color: #ffffff;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 1200px;
+    padding: 2rem;
+    margin: 2rem;
+}
+
+.painel-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.painel-title {
+    font-size: 28px;
+    color: #ff9800;
+    margin-bottom: 1rem;
+}
+
+.painel-section {
+    margin: 2rem 0;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.card {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.card h3 {
+    color: #ff9800;
+    margin-bottom: 1rem;
+}
+
+.acao-botoes {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.btn-painel {
+    border-radius: 15px;
+    padding: 10px 25px;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.btn-laranja {
+    background-color: #ff9800;
+    color: white;
+    border: 2px solid #ff9800;
+}
+
+.btn-laranja:hover {
+    background-color: #e68900;
+}
+
+.btn-branco {
+    background-color: white;
+    color: #ff9800;
+    border: 2px solid #ff9800;
+}
+
+.btn-branco:hover {
+    background-color: #fff3e0;
+}
+
+.user-info {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.btn-logout {
+    background: #ff4444;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-logout:hover {
+    background: #cc0000;
+}
+
+/* Logout */
+.user-info {
+    position: fixed;
+    top: 20px;
+    right: 30px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 1000;
+}
+
+.btn-logout {
+    background: #ff4444;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-logout:hover {
+    background: #cc0000;
+}
+
+.role-select {
+    margin: 10px 0;
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Remover contorno em caixa de texto */
+
+.label-input input {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+}
+
+/* Remove o contorno ao focar */
+input:focus, textarea:focus, select:focus {
+    outline: none;
+    border: 2px solid #ff9800; /* Contorno personalizado */
+    box-shadow: 0 0 5px rgba(255, 152, 0, 0.5); /* Sombra para destacar */
+}

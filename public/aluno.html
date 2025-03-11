@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Aluno</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/scripts.js"></script>
+</head>
+<body class="painel-container">
+    <div class="painel-content">
+        <div class="painel-header">
+            <h1 class="painel-title">Bem-vindo, Aluno!</h1>
+        </div>
+
+        <div class="painel-section">
+            <h2>Eventos Disponíveis</h2>
+            <div class="grid-container">
+                <!-- Card de Evento -->
+                <div class="card">
+                    <h3>Workshop de Programação</h3>
+                    <p>Data: 25/10/2023</p>
+                    <p>Local: Lab. Informática</p>
+                    <button class="btn-painel btn-laranja" onclick="inscreverEvento()">Inscrever-se</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="painel-section">
+            <h2>Minhas Inscrições</h2>
+            <div class="grid-container">
+                <div class="card">
+                    <h3>Palestra de IA</h3>
+                    <p>Data: 20/10/2023</p>
+                    <p>Status: Confirmado</p>
+                    <div class="acao-botoes">
+                        <button class="btn-painel btn-branco" onclick="cancelarInscricao()">Cancelar</button>
+                        <button class="btn-painel btn-laranja" onclick="verDetalhes()">Detalhes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/js/scripts.js"></script>
+</body>
+</html>
