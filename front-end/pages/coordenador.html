@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>SGEA: Coordenador</title>
+    <link
+      rel="stylesheet"
+      href="../css/style.css"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="header-content">
+        <h1>Bem-vindo, Coordenador!</h1>
+        <nav>
+          <a href="#cadastrar-evento">Cadastrar Evento</a>
+          <a href="#meus-eventos">Meus Eventos</a>
+          <a
+            href="../pages/login.html"
+            class="sair-link"
+            >Sair</a
+          >
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <!-- Container para as caixas lado a lado -->
+      <div class="caixa-container">
+        <!-- Caixa de Cadastro de Evento -->
+        <div class="caixa">
+          <section id="cadastrar-evento">
+            <h2>Cadastrar Novo Evento</h2>
+            <form id="event-form">
+              <input
+                type="text"
+                placeholder="Nome do Evento"
+                required
+              />
+              <input
+                type="date"
+                placeholder="Data"
+                required
+              />
+              <input
+                type="text"
+                placeholder="Local"
+                required
+              />
+              <input
+                type="time"
+                placeholder="Horário de Início"
+                required
+              />
+              <input
+                type="time"
+                placeholder="Horário de Término"
+                required
+              />
+              <button
+                type="submit"
+                class="btn"
+              >
+                Cadastrar
+              </button>
+            </form>
+          </section>
+        </div>
+
+        <!-- Caixa de Meus Eventos -->
+        <div class="caixa">
+          <section id="meus-eventos">
+            <h2>Meus Eventos</h2>
+            <div
+              id="meus-eventos-list"
+              class="event-list"
+            >
+              <!-- Lista de eventos cadastrados -->
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <!-- Modal para Editar Evento -->
+      <div
+        id="modal-editar"
+        class="modal"
+      >
+        <div class="modal-content">
+          <span class="fechar-modal">&times;</span>
+          <h2>Editar Evento</h2>
+          <form id="editar-event-form">
+            <input
+              type="text"
+              id="editar-nome"
+              placeholder="Nome do Evento"
+              required
+            />
+            <input
+              type="date"
+              id="editar-data"
+              placeholder="Data"
+              required
+            />
+            <input
+              type="text"
+              id="editar-local"
+              placeholder="Local"
+              required
+            />
+            <input
+              type="time"
+              id="editar-inicio"
+              placeholder="Horário de Início"
+              required
+            />
+            <input
+              type="time"
+              id="editar-termino"
+              placeholder="Horário de Término"
+              required
+            />
+            <button
+              type="submit"
+              class="btn"
+            >
+              Salvar Alterações
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Modal para Lista de Presença -->
+      <div
+        id="modal-presenca"
+        class="modal"
+      >
+        <div class="modal-content">
+          <span class="fechar-modal">&times;</span>
+          <h2>Lista de Presença</h2>
+          <div class="presenca-list">
+            <!-- Lista de alunos presentes -->
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="../js/script.js"></script>
+  </body>
+</html>
