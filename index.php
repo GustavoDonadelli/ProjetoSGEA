@@ -129,7 +129,7 @@ if (isset($_SESSION['mensagem'])) {
                     <input type="password" name="senha" placeholder="Senha" required>
                     <i class="bx bxs-lock-alt"></i>
                 </div>
-                <div class="forgot-link">
+            <div class="forgot-link">
                     <a href="#">Esqueceu sua senha?</a>
                 </div>
                 <button type="submit" class="btn">Login</button>

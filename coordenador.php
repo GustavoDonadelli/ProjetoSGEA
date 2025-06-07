@@ -28,6 +28,8 @@ if ($mysqli->connect_error) {
         <div class="header-content">
             <h1>Bem-vindo, <?php echo htmlspecialchars($_SESSION['nome']); ?>!</h1>
             <nav>
+                <a href="#cadastrar-evento">Cadastrar Evento</a>
+                <a href="#meus-eventos">Meus Eventos</a>
                 <a href="./logout.php" class="sair-link">Sair</a>
             </nav>
         </div>

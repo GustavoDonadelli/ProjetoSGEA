@@ -9,7 +9,7 @@
     <title>SGEA: Diretor</title>
     <link
       rel="stylesheet"
-      href="../sgea/front-end/css/style.css"
+      href="sgea/front-end/css/style.css"
     />
   </head>
   <body>
@@ -17,6 +17,10 @@
       <div class="header-content">
         <h1>Bem-vindo, Diretor!</h1>
         <nav>
+          <a href="#cadastrar-coordenador">Cadastrar Coordenador</a>
+          <a href="#lista-coordenadores">Lista de Coordenadores</a>
+          <a href="#lista-eventos">Eventos Criados</a>
+          <a href="#lista-presenca">Presença de Alunos</a>
           <a
             href="../sgea/logout.php"
             class="sair-link"

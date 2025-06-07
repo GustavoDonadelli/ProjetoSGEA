@@ -15,6 +15,8 @@ include('./back-end/conexao/protect.php');
         <div class="header-content">
             <h1>Bem-vindo, <?php echo htmlspecialchars($_SESSION['nome']); ?></h1>
             <nav>
+                <a href="#eventos">Eventos</a>
+                <a href="#certificados">Certificados</a>
                 <a href="../sgea/logout.php" class="sair-link">Sair</a>
             </nav>
         </div>
@@ -33,16 +35,14 @@ include('./back-end/conexao/protect.php');
             </div>
 
             <!-- Caixa de Certificados -->
-<div class="caixa" id="certificados">
-    <h2>Meus Certificados</h2>
-    <div id="certificate-list" class="certificate-list">
-        <!-- Mensagem padrão que será substituída pelo JavaScript -->
-        <div class="no-certificates">
-            <p>Nenhum certificado disponível ainda.</p>
-            <small>Participe de eventos e confirme sua presença para receber certificados</small>
+            <div class="caixa" id="certificados">
+                <h2>Meus Certificados</h2>
+                <div id="certificate-list" class="certificate-list">
+                    <!-- Lista de certificados será carregada via JavaScript -->
+                    <div class="loading">Carregando certificados...</div>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
     </main>
 
     <script src="../sgea/front-end/js/script.js"></script>
