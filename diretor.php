@@ -9,7 +9,7 @@
     <title>SGEA: Diretor</title>
     <link
       rel="stylesheet"
-      href="sgea/front-end/css/style.css"
+      href="../sgea/front-end/css/style.css"
     />
   </head>
   <body>

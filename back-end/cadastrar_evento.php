@@ -10,6 +10,9 @@ header('Content-Type: application/json');
 if (ob_get_length()) ob_clean();
 
 session_start();
+error_log('cadastrar_evento.php: Script iniciado. Request Method: ' . $_SERVER['REQUEST_METHOD'] . '. Timestamp: ' . microtime(true));
+$request_data_log = file_get_contents('php://input');
+error_log('cadastrar_evento.php: Dados recebidos (raw): ' . $request_data_log);
 
 // Verifica método HTTP
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -44,7 +47,9 @@ try {
     }
 
     // Conexão com o banco
+    error_log('cadastrar_evento.php: Antes de conectar ao BD. Timestamp: ' . microtime(true));
     require __DIR__ . '/conexao/connect.php';
+    error_log('cadastrar_evento.php: Após conectar ao BD. Timestamp: ' . microtime(true));
     
     // Prepara os dados
     $nome = $mysqli->real_escape_string($data['nome']);
@@ -65,6 +70,7 @@ try {
     $sql = "INSERT INTO eventos (nome, descricao, data_inicio, data_fim, local, coordenador_id) 
             VALUES (?, ?, ?, ?, ?, ?)";
     
+    error_log('cadastrar_evento.php: Antes de preparar a query de inserção do evento. SQL: ' . $sql . '. Timestamp: ' . microtime(true));
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) {
         throw new Exception('Erro na preparação da query: ' . $mysqli->error, 500);
@@ -72,37 +78,64 @@ try {
 
     $stmt->bind_param("sssssi", $nome, $descricao, $data_inicio, $data_fim, $local, $coordenador_id);
     
+    error_log('cadastrar_evento.php: Antes de executar a query de inserção do evento. Timestamp: ' . microtime(true));
     if (!$stmt->execute()) {
-        throw new Exception('Erro ao executar a query: ' . $stmt->error, 500);
+        throw new Exception('Erro ao executar a query de inserção do evento: ' . $stmt->error, 500);
+    }
+
+    $evento_inserido_id = $stmt->insert_id;
+    if (empty($evento_inserido_id)) {
+        // Isso pode acontecer se a tabela não tiver AUTO_INCREMENT ou se a inserção não gerou um ID.
+        throw new Exception('Não foi possível obter o ID do evento recém-criado.', 500);
     }
 
     // Gera código de presença
-    $codigo = strtoupper(substr(md5(uniqid(rand(), true)), 0, 6));
-    $sql_codigo = "INSERT INTO codigos_presenca (evento_id, codigo, data_geracao) VALUES (?, ?, NOW())";
-    $stmt_codigo = $mysqli->prepare($sql_codigo);
-    $stmt_codigo->bind_param("is", $stmt->insert_id, $codigo);
+    $codigo_presenca_gerado = null;
+    try {
+        $codigo = strtoupper(substr(md5(uniqid(rand(), true)), 0, 6));
+        $sql_codigo = "INSERT INTO codigos_presenca (evento_id, codigo, data_geracao) VALUES (?, ?, NOW())";
+        error_log('cadastrar_evento.php: Antes de preparar a query do código de presença. SQL: ' . $sql_codigo . '. Timestamp: ' . microtime(true));
+        $stmt_codigo = $mysqli->prepare($sql_codigo);
+        if (!$stmt_codigo) {
+            throw new Exception('Erro na preparação da query do código de presença: ' . $mysqli->error, 500);
+        }
+        $stmt_codigo->bind_param("is", $evento_inserido_id, $codigo);
+        
+        error_log('cadastrar_evento.php: Antes de executar a query do código de presença. Evento ID: ' . $evento_inserido_id . '. Código: ' . $codigo . '. Timestamp: ' . microtime(true));
+        if (!$stmt_codigo->execute()) {
+            throw new Exception('Erro ao executar a query do código de presença: ' . $stmt_codigo->error, 500);
+        }
+        $codigo_presenca_gerado = $codigo;
+    } catch (Throwable $e_codigo) {
+        // Se a geração do código de presença falhar, o evento já foi criado.
+        // Registre o erro e informe o usuário, mas considere o evento como criado.
+        error_log('Falha ao gerar código de presença para evento ID ' . $evento_inserido_id . ': ' . $e_codigo->getMessage());
+        $response_warning = 'Evento criado com sucesso, mas houve um erro ao gerar o código de presença: ' . $e_codigo->getMessage();
+    }
     
     $response = [
         'success' => true,
-        'message' => 'Evento cadastrado com sucesso',
-        'event_id' => $stmt->insert_id
+        'message' => 'Evento cadastrado com sucesso!',
+        'event_id' => $evento_inserido_id
     ];
 
-    if ($stmt_codigo->execute()) {
-        $response['codigo_presenca'] = $codigo;
-    } else {
-        $response['warning'] = 'Evento criado, mas o código de presença não foi gerado';
+    if ($codigo_presenca_gerado) {
+        $response['codigo_presenca'] = $codigo_presenca_gerado;
+    } elseif (isset($response_warning)) {
+        $response['warning'] = $response_warning;
     }
 
     // Limpa buffer e envia resposta
     if (ob_get_length()) ob_clean();
+    error_log('cadastrar_evento.php: Resposta enviada: ' . json_encode($response) . '. Timestamp: ' . microtime(true));
     echo json_encode($response);
 
-} catch (Exception $e) {
+} catch (Throwable $e) {
     // Limpa buffer antes do erro
     if (ob_get_length()) ob_clean();
     
     http_response_code($e->getCode() ?: 500);
+    error_log('cadastrar_evento.php: Erro capturado: ' . $e->getMessage() . '. Código: ' . $e->getCode() . '. Timestamp: ' . microtime(true));
     echo json_encode([
         'success' => false,
         'message' => $e->getMessage(),
@@ -111,5 +144,5 @@ try {
 } finally {
     if (isset($stmt)) $stmt->close();
     if (isset($stmt_codigo)) $stmt_codigo->close();
-    if (isset($mysqli)) $mysqli->close();
+    if (isset($mysqli) && $mysqli instanceof mysqli) $mysqli->close();
 }

@@ -116,6 +116,9 @@ async function fetchAPI(url, method = 'GET', data = null) {
 function setupFormAJAX(formId, endpoint, onSuccess, onError = null) {
   const form = document.getElementById(formId);
   if (!form) return;
+  // Verifica se o formulário já foi inicializado por esta função
+  if (form.dataset.formAjaxInitialized) return;
+  form.dataset.formAjaxInitialized = 'true';
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -332,52 +335,40 @@ if (document.querySelector(".aluno-section")) {
   // Função melhorada para carregar certificados
   async function carregarCertificados() {
     try {
-        const certificados = await fetchAPI('./back-end/listar_certificados.php');
-        const certificateList = document.getElementById("certificate-list");
-        
-        if (certificados.length > 0) {
-            certificateList.innerHTML = certificados.map(cert => `
-                <div class="certificate-item">
-                    <div class="certificate-header">
-                        <h3>${cert.evento_nome}</h3>
-                        <span class="certificate-date">${formatarData(cert.data_emissao)}</span>
-                    </div>
-                    <div class="certificate-body">
-                        <p class="certificate-description">Certificado de participação com carga horária de ${cert.carga_horaria || '8'} horas</p>
-                        <div class="certificate-footer">
-                            <div class="verification-info">
-                                <span class="verification-label">Código:</span>
-                                <span class="verification-code">${cert.codigo_verificacao}</span>
-                            </div>
-                            <div class="certificate-actions">
-                                <a href="${cert.link_certificado}" class="btn-download" download target="_blank">
-                                    <i class="fas fa-download"></i> Baixar
-                                </a>
-                                <button class="btn-verify" data-code="${cert.codigo_verificacao}">
-                                    <i class="fas fa-check-circle"></i> Verificar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+      const certificados = await fetchAPI('./back-end/listar_certificados.php');
+      const certificateList = document.getElementById("certificate-list");
+      
+      certificateList.innerHTML = certificados.length > 0 
+        ? certificados.map(cert => `
+            <div class="certificate-item">
+              <div class="certificate-header">
+                <h3>${cert.evento_nome}</h3>
+                <span class="certificate-date">${formatarData(cert.data_emissao)}</span>
+              </div>
+              <div class="certificate-body">
+                <p class="certificate-description">Certificado de participação com carga horária de ${cert.carga_horaria || '8'} horas</p>
+                <div class="certificate-footer">
+                  <div class="verification-info">
+                    <span class="verification-label">Código:</span>
+                    <span class="verification-code">${cert.codigo_verificacao}</span>
+                  </div>
+                  <div class="certificate-actions">
+                    <a href="${cert.link_certificado}" class="btn-download" download target="_blank">
+                      <i class="fas fa-download"></i> Baixar
+                    </a>
+                    <button class="btn-verify" data-code="${cert.codigo_verificacao}">
+                      <i class="fas fa-check-circle"></i> Verificar
+                    </button>
+                  </div>
                 </div>
-            `).join('');
-        } else {
-            certificateList.innerHTML = `
-                <div class="no-certificates">
-                    <i class="fas fa-certificate"></i>
-                    <p>Nenhum certificado disponível ainda</p>
-                    <small>Participe de eventos e confirme sua presença para receber certificados</small>
-                    <div class="info-box">
-                        <p>Para receber certificados:</p>
-                        <ol>
-                            <li>Inscreva-se em um evento disponível</li>
-                            <li>Compareça ao evento no dia e horário marcados</li>
-                            <li>Confirme sua presença com o código fornecido</li>
-                        </ol>
-                    </div>
-                </div>
-            `;
-        }
+              </div>
+            </div>
+          `).join('')
+        : `<div class="no-certificates">
+              <i class="fas fa-certificate"></i>
+              <p>Nenhum certificado disponível ainda</p>
+              <small>Participe de eventos e confirme sua presença para receber certificados</small>
+            </div>`;
 
       // Configura botões de verificação
       document.querySelectorAll('.btn-verify').forEach(btn => {
@@ -419,14 +410,14 @@ if (document.querySelector(".aluno-section")) {
       });
 
     } catch (error) {
-        console.error('Erro ao carregar certificados:', error);
-        document.getElementById("certificate-list").innerHTML = `
-            <div class="error-message">
-                <i class="fas fa-exclamation-triangle"></i>
-                <p>Erro ao carregar certificados: ${error.message}</p>
-            </div>`;
+      console.error('Erro ao carregar certificados:', error);
+      document.getElementById("certificate-list").innerHTML = `
+        <div class="error-message">
+          <i class="fas fa-exclamation-triangle"></i>
+          <p>Erro ao carregar certificados: ${error.message}</p>
+        </div>`;
     }
-}
+  }
 
   // Configura botão de confirmar presença
   const btnConfirmar = document.querySelector(".btn-confirmar");
@@ -460,23 +451,7 @@ if (document.querySelector(".aluno-section")) {
 // =============================================
 
 if (document.querySelector(".coordenador-section")) {
-  // Configura formulário de cadastro de evento
-  setupFormAJAX(
-    'event-form',
-    './back-end/cadastrar_evento.php',
-    (result, form) => {
-      if (result.success) {
-        alert('Evento cadastrado com sucesso!');
-        form.reset();
-        carregarEventosCoordenador();
-      } else {
-        throw new Error(result.message || 'Erro ao cadastrar evento');
-      }
-    },
-    (error) => {
-      alert(error.message);
-    }
-  );
+
 
   // Carrega eventos do coordenador
   async function carregarEventosCoordenador() {
