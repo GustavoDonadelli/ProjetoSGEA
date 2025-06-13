@@ -50,35 +50,52 @@ try {
         exit();
     }
     
-    // Verifica se já confirmou presença
+    // Verifica se o aluno já confirmou presença neste evento
     $presenca_sql = "SELECT id FROM presencas WHERE evento_id = ? AND aluno_id = ?";
     $presenca_stmt = $mysqli->prepare($presenca_sql);
+    if (!$presenca_stmt) {
+        echo json_encode(['success' => false, 'message' => 'Erro ao preparar consulta de presença: ' . $mysqli->error]);
+        exit();
+    }
     $presenca_stmt->bind_param("ii", $evento_id, $aluno_id);
     $presenca_stmt->execute();
     $presenca_result = $presenca_stmt->get_result();
-    
+
     if ($presenca_result->num_rows > 0) {
-        echo json_encode(['success' => false, 'message' => 'Você já confirmou presença neste evento']);
+        // Presença já confirmada anteriormente
+        echo json_encode(['success' => false, 'message' => 'Você já confirmou presença neste evento.']);
+        if(isset($presenca_stmt)) $presenca_stmt->close();
         exit();
-    }
-    
-    // Registra a presença (REMOVIDA A VALIDAÇÃO DE PERÍODO)
-    $insert_sql = "INSERT INTO presencas (evento_id, aluno_id, data_presenca, codigo_presenca) 
-                   VALUES (?, ?, NOW(), ?)";
-    $insert_stmt = $mysqli->prepare($insert_sql);
-    $insert_stmt->bind_param("iis", $evento_id, $aluno_id, $codigo);
-    
-    if ($insert_stmt->execute()) {
-        // Marca o código como utilizado
-        $update_sql = "UPDATE codigos_presenca SET utilizado = 1 WHERE id = ?";
-        $update_stmt = $mysqli->prepare($update_sql);
-        $update_stmt->bind_param("i", $row['id']);
-        $update_stmt->execute();
-        
-        echo json_encode(['success' => true, 'message' => 'Presença confirmada com sucesso']);
     } else {
-        echo json_encode(['success' => false, 'message' => 'Erro ao confirmar presença']);
+        // Presença ainda não confirmada, então insere o novo registro
+        $insert_presenca_sql = "INSERT INTO presencas (evento_id, aluno_id, data_presenca, codigo_presenca) VALUES (?, ?, NOW(), ?)";
+        $insert_presenca_stmt = $mysqli->prepare($insert_presenca_sql);
+        if (!$insert_presenca_stmt) {
+            echo json_encode(['success' => false, 'message' => 'Erro ao preparar inserção de presença: ' . $mysqli->error]);
+            exit();
+        }
+        $insert_presenca_stmt->bind_param("iis", $evento_id, $aluno_id, $codigo);
+
+        if ($insert_presenca_stmt->execute()) {
+            // Marca o código de presença (da tabela codigos_presenca) como utilizado
+            // $row['id'] é o ID do código da tabela codigos_presenca, obtido na validação do código
+            $update_codigo_sql = "UPDATE codigos_presenca SET utilizado = 1 WHERE id = ?";
+            $update_codigo_stmt = $mysqli->prepare($update_codigo_sql);
+            if ($update_codigo_stmt) {
+                $update_codigo_stmt->bind_param("i", $row['id']); // $row['id'] is codigos_presenca.id
+                $update_codigo_stmt->execute();
+                if(isset($update_codigo_stmt)) $update_codigo_stmt->close();
+            } else {
+                // Log error, mas continua pois a presença foi confirmada
+                error_log('Erro ao preparar update do codigo_presenca: ' . $mysqli->error);
+            }
+            echo json_encode(['success' => true, 'message' => 'Presença confirmada com sucesso!']);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Erro ao confirmar presença: ' . $insert_presenca_stmt->error]);
+        }
+        if(isset($insert_presenca_stmt)) $insert_presenca_stmt->close();
     }
+    if(isset($presenca_stmt)) $presenca_stmt->close();
 } catch (Exception $e) {
     http_response_code(500);
     echo json_encode(['error' => $e->getMessage()]);

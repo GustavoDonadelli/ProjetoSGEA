@@ -8,12 +8,11 @@ try {
                 c.id, 
                 e.nome as evento_nome, 
                 c.data_emissao, 
-                c.link_certificado, 
-                c.codigo_verificacao,
-                c.carga_horaria
+                c.link_certificado
             FROM certificados c
-            JOIN eventos e ON c.evento_id = e.id
-            WHERE c.aluno_id = ?
+            JOIN inscricoes i ON c.inscricao_id = i.id
+            JOIN eventos e ON i.evento_id = e.id
+            WHERE i.aluno_id = ?
             ORDER BY c.data_emissao DESC";
     
     $stmt = $mysqli->prepare($sql);
@@ -27,9 +26,7 @@ try {
             'id' => $row['id'],
             'evento_nome' => $row['evento_nome'],
             'data_emissao' => $row['data_emissao'],
-            'link_certificado' => $row['link_certificado'],
-            'codigo_verificacao' => $row['codigo_verificacao'],
-            'carga_horaria' => $row['carga_horaria']
+            'link_certificado' => $row['link_certificado']
         ];
     }
     

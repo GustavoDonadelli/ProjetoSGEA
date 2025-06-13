@@ -1,9 +1,10 @@
 <?php
 session_start();
-include('./back-end/conexao/connect.php');
+// A conexão com o banco de dados será incluída apenas ao processar os formulários.
 
 // Processar CADASTRO
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['nome']) && isset($_POST['email']) && isset($_POST['senha'])) {
+    include('./back-end/conexao/connect.php');
     
     // Coletar e sanitizar dados
     $nome = $mysqli->real_escape_string($_POST['nome']);
@@ -54,6 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['nome']) && isset($_POS
 
 // Processar LOGIN
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email']) && !isset($_POST['nome'])) {
+    include('./back-end/conexao/connect.php');
     $email = $mysqli->real_escape_string($_POST['email']);
     $senha = $_POST['senha'];
     
@@ -84,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email']) && !isset($_P
             }
             exit();
         } else {
-            $_SESSION['mensagem'] = 'Senha incorreta';
+            $_SESSION['mensagem'] = 'Senha incorreta. Se você alterou sua senha recentemente, certifique-se de estar usando a nova.';
             header("Location: index.php");
             exit();
         }
@@ -130,7 +132,7 @@ if (isset($_SESSION['mensagem'])) {
                     <i class="bx bxs-lock-alt"></i>
                 </div>
             <div class="forgot-link">
-                    <a href="#">Esqueceu sua senha?</a>
+                    <a href="esqueci_senha.php">Esqueceu sua senha?</a>
                 </div>
                 <button type="submit" class="btn">Login</button>
             </form>

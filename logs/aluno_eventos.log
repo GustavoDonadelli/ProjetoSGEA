@@ -1,0 +1,178 @@
+[2025-06-14 01:48:31] === NOVA REQUISIÇÃO ===
+[2025-06-14 01:48:31] Sessão: 
+[2025-06-14 01:48:31] POST: Array
+(
+)
+
+[2025-06-14 01:48:31] GET: Array
+(
+)
+
+[2025-06-14 01:48:31] Verificando sessão...
+[2025-06-14 01:48:31] Sessão válida. ID do aluno: 3
+[2025-06-14 01:48:31] Iniciando consulta ao banco de dados...
+[2025-06-14 01:48:31] Preparando consulta SQL...
+[2025-06-14 01:48:31] Consulta preparada com sucesso.
+[2025-06-14 01:48:31] Executando consulta com aluno_id: 3
+[2025-06-14 01:48:31] Consulta executada. Número de linhas: 2
+[2025-06-14 01:48:33] === NOVA REQUISIÇÃO ===
+[2025-06-14 01:48:33] Sessão: 
+[2025-06-14 01:48:33] POST: Array
+(
+)
+
+[2025-06-14 01:48:33] GET: Array
+(
+)
+
+[2025-06-14 01:48:33] Verificando sessão...
+[2025-06-14 01:48:33] Sessão válida. ID do aluno: 3
+[2025-06-14 01:48:33] Iniciando consulta ao banco de dados...
+[2025-06-14 01:48:33] Preparando consulta SQL...
+[2025-06-14 01:48:33] Consulta preparada com sucesso.
+[2025-06-14 01:48:33] Executando consulta com aluno_id: 3
+[2025-06-14 01:48:33] Consulta executada. Número de linhas: 2
+[2025-06-14 01:50:23] === NOVA REQUISICAO ===
+[2025-06-14 01:50:23] Sessao: 
+[2025-06-14 01:50:23] POST: Array
+(
+)
+
+[2025-06-14 01:50:23] GET: Array
+(
+)
+
+[2025-06-14 01:50:23] Verificando sessao...
+[2025-06-14 01:50:23] Sessao valida. ID do aluno: 3
+[2025-06-14 01:50:23] Iniciando consulta ao banco de dados...
+[2025-06-14 01:50:23] Preparando consulta SQL...
+[2025-06-14 01:50:23] Consulta preparada com sucesso.
+[2025-06-14 01:50:23] Executando consulta com aluno_id: 3
+[2025-06-14 01:50:23] Consulta executada. Numero de linhas: 2
+[2025-06-14 01:50:23] Eventos processados com sucesso: 2
+[2025-06-14 01:50:25] === NOVA REQUISICAO ===
+[2025-06-14 01:50:25] Sessao: 
+[2025-06-14 01:50:25] POST: Array
+(
+)
+
+[2025-06-14 01:50:25] GET: Array
+(
+)
+
+[2025-06-14 01:50:25] Verificando sessao...
+[2025-06-14 01:50:25] Sessao valida. ID do aluno: 3
+[2025-06-14 01:50:25] Iniciando consulta ao banco de dados...
+[2025-06-14 01:50:25] Preparando consulta SQL...
+[2025-06-14 01:50:25] Consulta preparada com sucesso.
+[2025-06-14 01:50:25] Executando consulta com aluno_id: 3
+[2025-06-14 01:50:25] Consulta executada. Numero de linhas: 2
+[2025-06-14 01:50:25] Eventos processados com sucesso: 2
+[2025-06-14 01:50:26] === NOVA REQUISICAO ===
+[2025-06-14 01:50:26] Sessao: 
+[2025-06-14 01:50:26] POST: Array
+(
+)
+
+[2025-06-14 01:50:26] GET: Array
+(
+)
+
+[2025-06-14 01:50:26] Verificando sessao...
+[2025-06-14 01:50:26] Sessao valida. ID do aluno: 3
+[2025-06-14 01:50:26] Iniciando consulta ao banco de dados...
+[2025-06-14 01:50:26] Preparando consulta SQL...
+[2025-06-14 01:50:26] Consulta preparada com sucesso.
+[2025-06-14 01:50:26] Executando consulta com aluno_id: 3
+[2025-06-14 01:50:26] Consulta executada. Numero de linhas: 2
+[2025-06-14 01:50:26] Eventos processados com sucesso: 2
+[2025-06-14 01:50:35] === NOVA REQUISICAO ===
+[2025-06-14 01:50:35] Sessao: 
+[2025-06-14 01:50:35] POST: Array
+(
+)
+
+[2025-06-14 01:50:35] GET: Array
+(
+)
+
+[2025-06-14 01:50:35] Verificando sessao...
+[2025-06-14 01:50:35] Sessao valida. ID do aluno: 3
+[2025-06-14 01:50:35] Iniciando consulta ao banco de dados...
+[2025-06-14 01:50:35] Preparando consulta SQL...
+[2025-06-14 01:50:35] Consulta preparada com sucesso.
+[2025-06-14 01:50:35] Executando consulta com aluno_id: 3
+[2025-06-14 01:50:35] Consulta executada. Numero de linhas: 2
+[2025-06-14 01:50:35] Eventos processados com sucesso: 2
+[2025-06-14 01:50:51] === NOVA REQUISICAO ===
+[2025-06-14 01:50:51] Sessao: 
+[2025-06-14 01:50:51] POST: Array
+(
+)
+
+[2025-06-14 01:50:51] GET: Array
+(
+)
+
+[2025-06-14 01:50:51] Verificando sessao...
+[2025-06-14 01:50:51] Sessao valida. ID do aluno: 3
+[2025-06-14 01:50:51] Iniciando consulta ao banco de dados...
+[2025-06-14 01:50:51] Preparando consulta SQL...
+[2025-06-14 01:50:51] Consulta preparada com sucesso.
+[2025-06-14 01:50:51] Executando consulta com aluno_id: 3
+[2025-06-14 01:50:51] Consulta executada. Numero de linhas: 2
+[2025-06-14 01:50:51] Eventos processados com sucesso: 2
+[2025-06-14 01:51:07] === NOVA REQUISICAO ===
+[2025-06-14 01:51:07] Sessao: 
+[2025-06-14 01:51:07] POST: Array
+(
+)
+
+[2025-06-14 01:51:07] GET: Array
+(
+)
+
+[2025-06-14 01:51:07] Verificando sessao...
+[2025-06-14 01:51:07] Sessao valida. ID do aluno: 3
+[2025-06-14 01:51:07] Iniciando consulta ao banco de dados...
+[2025-06-14 01:51:07] Preparando consulta SQL...
+[2025-06-14 01:51:07] Consulta preparada com sucesso.
+[2025-06-14 01:51:07] Executando consulta com aluno_id: 3
+[2025-06-14 01:51:07] Consulta executada. Numero de linhas: 2
+[2025-06-14 01:51:07] Eventos processados com sucesso: 2
+[2025-06-14 01:52:03] === NOVA REQUISICAO ===
+[2025-06-14 01:52:03] Sessao: 
+[2025-06-14 01:52:03] POST: Array
+(
+)
+
+[2025-06-14 01:52:03] GET: Array
+(
+)
+
+[2025-06-14 01:52:03] Verificando sessao...
+[2025-06-14 01:52:03] Sessao valida. ID do aluno: 3
+[2025-06-14 01:52:03] Iniciando consulta ao banco de dados...
+[2025-06-14 01:52:03] Preparando consulta SQL...
+[2025-06-14 01:52:03] Consulta preparada com sucesso.
+[2025-06-14 01:52:03] Executando consulta com aluno_id: 3
+[2025-06-14 01:52:03] Consulta executada. Numero de linhas: 2
+[2025-06-14 01:52:03] Eventos processados com sucesso: 2
+[2025-06-14 01:53:02] === NOVA REQUISICAO ===
+[2025-06-14 01:53:02] Sessao: 
+[2025-06-14 01:53:02] POST: Array
+(
+)
+
+[2025-06-14 01:53:02] GET: Array
+(
+)
+
+[2025-06-14 01:53:02] Verificando sessao...
+[2025-06-14 01:53:02] Sessao valida. ID do aluno: 3
+[2025-06-14 01:53:02] Iniciando consulta ao banco de dados...
+[2025-06-14 01:53:02] Preparando consulta SQL...
+[2025-06-14 01:53:02] Consulta preparada com sucesso.
+[2025-06-14 01:53:02] Executando consulta com aluno_id: 3
+[2025-06-14 01:53:02] Consulta executada. Numero de linhas: 2
+[2025-06-14 01:53:02] Eventos processados com sucesso: 2

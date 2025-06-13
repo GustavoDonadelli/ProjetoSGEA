@@ -1,0 +1,15 @@
+[2025-06-14 00:47:52] - Erro Fatal: Uncaught mysqli_sql_exception: Unknown column 'utilizado' in 'field list' in C:\xampp\htdocs\sgea\back-end\gerar_codigo_presenca.php:145
+Stack trace:
+#0 C:\xampp\htdocs\sgea\back-end\gerar_codigo_presenca.php(145): mysqli->prepare('UPDATE codigos_...')
+#1 {main}
+  thrown no arquivo C:\xampp\htdocs\sgea\back-end\gerar_codigo_presenca.php na linha 145
+[2025-06-14 00:48:01] - Erro Fatal: Uncaught mysqli_sql_exception: Unknown column 'utilizado' in 'field list' in C:\xampp\htdocs\sgea\back-end\gerar_codigo_presenca.php:145
+Stack trace:
+#0 C:\xampp\htdocs\sgea\back-end\gerar_codigo_presenca.php(145): mysqli->prepare('UPDATE codigos_...')
+#1 {main}
+  thrown no arquivo C:\xampp\htdocs\sgea\back-end\gerar_codigo_presenca.php na linha 145
+[2025-06-14 00:48:13] - Erro Fatal: Uncaught mysqli_sql_exception: Unknown column 'utilizado' in 'field list' in C:\xampp\htdocs\sgea\back-end\gerar_codigo_presenca.php:145
+Stack trace:
+#0 C:\xampp\htdocs\sgea\back-end\gerar_codigo_presenca.php(145): mysqli->prepare('UPDATE codigos_...')
+#1 {main}
+  thrown no arquivo C:\xampp\htdocs\sgea\back-end\gerar_codigo_presenca.php na linha 145

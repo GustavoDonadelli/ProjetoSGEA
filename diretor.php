@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+// Verificação de acesso
+if (!isset($_SESSION['id']) || $_SESSION['tipo'] !== 'diretor') {
+    header("Location: index.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
   <head>
@@ -15,12 +24,8 @@
   <body>
     <header>
       <div class="header-content">
-        <h1>Bem-vindo, Diretor!</h1>
+        <h1>Bem-vindo, <?php echo htmlspecialchars($_SESSION['nome']); ?>!</h1>
         <nav>
-          <a href="#cadastrar-coordenador">Cadastrar Coordenador</a>
-          <a href="#lista-coordenadores">Lista de Coordenadores</a>
-          <a href="#lista-eventos">Eventos Criados</a>
-          <a href="#lista-presenca">Presença de Alunos</a>
           <a
             href="../sgea/logout.php"
             class="sair-link"
@@ -89,27 +94,11 @@
           </section>
         </div>
 
-        <!-- Caixa de Lista de Presença de Alunos -->
-        <div class="caixa">
-          <section id="lista-presenca">
-            <h2>Presença de Alunos</h2>
-            <div class="presenca-list">
-              <!-- Lista de alunos que confirmaram presença -->
-            </div>
-          </section>
-        </div>
-      </div>
-
-      <!-- Modal para Ver Presenças -->
-      <div
-        id="modal-presenca"
-        class="modal"
-      >
-        <div class="modal-content">
-          <span class="fechar-modal">&times;</span>
-          <h2>Lista de Presença</h2>
-          <div class="presenca-list">
-            <!-- Lista de alunos presentes -->
+        <!-- Caixa de Lista de Presença de Alunos (Adaptada) -->
+        <div class="caixa" id="caixa-lista-presenca" style="display: none;">
+          <h2 id="presenca-event-name">Lista de Presença do Evento</h2> <!-- Título será atualizado via JS -->
+          <div id="presenca-list-content">
+            <!-- Conteúdo da lista de presença será inserido aqui pelo JavaScript -->
           </div>
         </div>
       </div>

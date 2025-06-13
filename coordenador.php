@@ -28,8 +28,6 @@ if ($mysqli->connect_error) {
         <div class="header-content">
             <h1>Bem-vindo, <?php echo htmlspecialchars($_SESSION['nome']); ?>!</h1>
             <nav>
-                <a href="#cadastrar-evento">Cadastrar Evento</a>
-                <a href="#meus-eventos">Meus Eventos</a>
                 <a href="./logout.php" class="sair-link">Sair</a>
             </nav>
         </div>
@@ -107,8 +105,8 @@ if ($mysqli->connect_error) {
                                     }
                                     
                                     echo '<div class="event-actions">';
-                                    echo '<button class="btn-editar">Editar</button>';
-                                    echo '<button class="btn-presenca">Lista de Presença</button>';
+                                    echo '<button class="btn-editar" data-event-id="'.(int)$evento['id'].'">Editar</button>';
+                                    echo '<button class="btn-presenca" data-event-id="'.(int)$evento['id'].'" data-event-name="'.htmlspecialchars($evento['nome']).'">Lista de Presença</button>';
                                     echo '</div>';
                                     echo '</div>';
                                 }
@@ -123,20 +121,29 @@ if ($mysqli->connect_error) {
                     </div>
                 </section>
             </div>
-        </div>
+        </div> <!-- Fim do .caixa-container -->
 
-        <!-- Modal para Lista de Presença -->
-        <div id="modal-presenca" class="modal">
-            <div class="modal-content">
-                <span class="fechar-modal">&times;</span>
-                <h2>Lista de Presença</h2>
-                <div class="presenca-list">
-                    <!-- Conteúdo será carregado via AJAX -->
-                </div>
+        <!-- Nova Caixa para Lista de Presença -->
+        <div class="caixa" id="caixa-lista-presenca" style="margin-top: 30px; display: none;">
+            <h2>Lista de Presença: <span id="presenca-event-title"></span></h2>
+            <div id="presenca-list-content">
+                <p>Selecione um evento na lista "Meus Eventos" para ver os participantes confirmados.</p>
+                <!-- Conteúdo da lista de presença será carregado aqui -->
             </div>
         </div>
     </main>
     
+    <!-- Modal para Lista de Presença -->
+    <div id="modal-presenca" class="modal">
+        <div class="modal-content">
+            <span class="fechar-modal" onclick="fecharModal('modal-presenca')">&times;</span>
+            <h2>Gerenciamento de Presença</h2> <!-- O título será atualizado por JS -->
+            <div class="presenca-list">
+                <!-- Conteúdo da lista de presença e cabeçalho serão injetados aqui por JavaScript -->
+            </div>
+        </div>
+    </div>
+
     <script src="../sgea/front-end/js/script.js"></script>
 </body>
 </html>

@@ -17,6 +17,310 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
+/* ============================================= */
+/* ESTILOS GLOBAIS PARA MODAIS */
+/* ============================================= */
+.modal {
+  display: none; /* Alterado para flex por JS para mostrar */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+  padding: 20px; /* Espaçamento para evitar que o modal toque as bordas em telas pequenas */
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: auto;
+  padding: 30px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
+  position: relative;
+  animation: fadeInModal 0.3s ease-out;
+}
+
+.fechar-modal {
+  color: #888;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 32px;
+  font-weight: bold;
+  cursor: pointer;
+  line-height: 1;
+  padding: 5px;
+  transition: color 0.2s ease;
+}
+
+.fechar-modal:hover,
+.fechar-modal:focus {
+  color: #333;
+  text-decoration: none;
+}
+
+@keyframes fadeInModal {
+  from {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Estilos para formulários dentro de modais */
+.modal-content h2 {
+  margin-top: 0;
+  margin-bottom: 25px;
+  font-size: 1.8em;
+  color: #337ab7; /* Azul do sistema */
+  text-align: center;
+}
+
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.modal-content .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.modal-content .form-group label {
+  font-weight: 500;
+  color: #555;
+  font-size: 0.95em;
+}
+
+.modal-content input[type="text"],
+.modal-content input[type="email"],
+.modal-content input[type="password"],
+.modal-content input[type="datetime-local"],
+.modal-content input[type="number"],
+.modal-content textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1em;
+  color: #333;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.modal-content input[type="text"]:focus,
+.modal-content input[type="email"]:focus,
+.modal-content input[type="password"]:focus,
+.modal-content input[type="datetime-local"]:focus,
+.modal-content input[type="number"]:focus,
+.modal-content textarea:focus {
+  border-color: #7494ec;
+  box-shadow: 0 0 0 2px rgba(116, 148, 236, 0.2);
+  outline: none;
+}
+
+.modal-content textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.modal-content .btn {
+  padding: 12px 20px;
+  font-size: 1em;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  font-weight: 500;
+}
+
+.modal-content .btn:active {
+    transform: scale(0.98);
+}
+
+.modal-content .btn[type="submit"],
+.modal-content .btn-primary {
+  background-color: #7494ec; /* Azul padrão */
+  color: white;
+}
+
+.modal-content .btn[type="submit"]:hover,
+.modal-content .btn-primary:hover {
+  background-color: #5a7bd8;
+}
+
+.modal-content .btn-excluir {
+  background-color: #dc3545; /* Vermelho para exclusão */
+  color: white;
+}
+
+.modal-content .btn-excluir:hover {
+  background-color: #c82333;
+}
+
+.modal-content .btn-secondary {
+  background-color: #6c757d; /* Cinza para ações secundárias */
+  color: white;
+}
+
+.modal-content .btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+/* Estilos específicos para o Modal de Lista de Presença */
+.modal-content .presenca-list {
+  margin-top: 20px;
+}
+
+.presenca-header {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: 1px solid #e9ecef;
+}
+
+.presenca-header .header-actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  flex-wrap: wrap; /* Para quebrar em telas menores */
+}
+
+.presenca-header .header-actions .btn {
+  flex-grow: 1; /* Para que os botões ocupem espaço disponível */
+  min-width: 150px; /* Largura mínima para cada botão */
+}
+
+.presenca-header .header-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9em;
+  color: #555;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.presenca-header .codigo-info,
+.presenca-header .certificate-info {
+  background-color: #e9ecef;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+.presenca-list-container {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden; /* Para conter bordas arredondadas com a tabela */
+}
+
+.presenca-list-header,
+.presenca-item {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr; /* Participante, Status, Certificado */
+  padding: 10px 15px;
+  gap: 10px;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+}
+
+.presenca-list-header {
+  background-color: #f0f0f0;
+  font-weight: bold;
+  color: #333;
+  border-top-left-radius: 7px; /* Ajuste para borda do container */
+  border-top-right-radius: 7px;
+}
+
+.presenca-item:last-child {
+  border-bottom: none;
+}
+
+.presenca-item:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.presenca-item span {
+  font-size: 0.9em;
+}
+
+.presenca-item .status-presente {
+  color: #28a745; /* Verde */
+  font-weight: bold;
+}
+
+.presenca-item .status-ausente {
+  color: #dc3545; /* Vermelho */
+}
+
+.presenca-item .certificado-emitido {
+  color: #17a2b8; /* Azul info */
+}
+
+.presenca-item .certificado-pendente {
+  color: #ffc107; /* Amarelo warning */
+}
+
+/* Ajustes para SweetAlert dentro do modal, se necessário */
+.swal2-container.swal2-center {
+    z-index: 2000 !important; /* Garante que SweetAlert fique sobre o modal */
+}
+
+.generated-code {
+    text-align: center;
+    padding: 15px;
+}
+
+.generated-code .code-display {
+    font-size: 2em;
+    font-weight: bold;
+    color: #28a745;
+    background-color: #e9f5ec;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin: 10px 0;
+    border: 1px dashed #28a745;
+    display: inline-block;
+}
+
+.generated-code p {
+    margin-bottom: 5px;
+}
+
+.generated-code small {
+    color: #6c757d;
+}
+
+
+/* Responsividade para modal */
+@media screen and (max-width: 768px) {
+  .modal-content {
+    padding: 20px;
+    width: 95%;
+  }
+  .modal-content h2 {
+    font-size: 1.5em;
+  }
+  .modal-content .btn {
+    padding: 10px 15px;
+    font-size: 0.95em;
+  }
+}
+
+
 /* Página de Login */
 .container {
   position: relative;
@@ -234,35 +538,42 @@ header nav a:hover {
 
 /* Conteúdo Principal */
 main {
-  padding-top: 80px;
-  padding: 20px;
+  padding-top: 100px; /* Aumentado para mais espaço do header */
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-bottom: 30px;
   max-width: 1200px;
   margin: 0 auto;
+  width: 100%; /* Garante que o main ocupe a largura */
 }
 
 /* Container para as caixas lado a lado */
 .caixa-container {
   display: flex;
-  gap: 20px;
+  gap: 30px; /* Aumentado o gap entre as caixas */
   width: 100%;
   max-width: 1200px;
-  margin: 0 auto 20px; /* Margem inferior para separar os containers */
+  margin: 30px auto; /* Margem vertical e centralização horizontal */
 }
 
 /* Estilos para as Caixas */
 .caixa {
   background: #fff;
-  padding: 20px;
+  padding: 30px; /* Padding interno aumentado */
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   flex: 1; /* Faz as caixas ocuparem o espaço disponível igualmente */
   min-width: 300px; /* Largura mínima para evitar que fiquem muito pequenas */
+  display: flex; /* Para usar gap nos filhos */
+  flex-direction: column; /* Para usar gap nos filhos */
+  gap: 25px; /* Espaçamento entre título e lista */
 }
 
 .caixa h2 {
   font-size: 24px;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; Removido, .caixa usa gap */
   color: #333;
+  font-weight: 600;
 }
 
 .caixa form {
@@ -311,29 +622,49 @@ main {
 .event-list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-bottom: 20px;
+  gap: 15px;
 }
 
 .event-item {
-  background: #f9f9f9;
-  padding: 15px;
+  background-color: #ffffff;
+  padding: 20px;
   border-radius: 8px;
-  border: 1px solid #eee;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: center; /* Alinha verticalmente event-details e event-actions */
+  border: 1px solid #e0e0e0;
 }
 
-.event-item span {
-  font-size: 16px;
+/* Substituído h3 e p por classes específicas dentro de event-details */
+.event-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px; /* Espaçamento entre os spans de detalhes */
+  flex-grow: 1; /* Permite que os detalhes ocupem o espaço disponível */
+  margin-right: 15px; /* Espaço entre os detalhes e o botão de ação */
+}
+
+.event-title {
+  font-size: 18px;
   color: #333;
+  font-weight: 600;
 }
 
-.event-actions {
+.event-date {
+  font-size: 14px;
+  color: #555;
+}
+
+.event-coord {
+  font-size: 13px;
+  color: #777;
+}
+
+/* .event-actions já foi redefinido acima com mais detalhes, remover esta duplicata se a de cima for suficiente */
+/* .event-actions {
   display: flex;
   gap: 10px;
-}
+} */
 
 .btn-editar,
 .btn-presenca {
@@ -351,37 +682,170 @@ main {
   background: #5a7bd8;
 }
 
-/* Estilos para os Modais */
-.modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
+/* .event-actions já foi redefinido acima com mais detalhes, remover esta duplicata se a de cima for suficiente */
+/* .event-actions {
+  flex-shrink: 0; 
+} */
+
+/* Estilos da página do Coordenador - Meus Eventos */
+.coordenador-section .event-list { /* Alvo: a div que contém os event-item */
+    max-height: 500px; 
+    overflow-y: auto;  
+    padding-right: 10px; /* Evita que a barra de rolagem cubra o conteúdo */
+    margin-top: 15px; 
+    border-top: 1px solid #eee; /* Linha separadora do título "Meus Eventos" */
+    padding-top: 15px;
 }
 
-.modal-content {
-  background: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  width: 90%;
-  max-width: 500px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+.coordenador-section .event-item {
+    background-color: #fdfdfd; 
+    border: 1px solid #e7e7e7;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px; 
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
 }
 
-.fechar-modal {
-  float: right;
-  font-size: 24px;
+.coordenador-section .event-item:last-child {
+    margin-bottom: 5px; /* Menor margem para o último item antes da barra de rolagem */
+}
+
+.coordenador-section .event-item h3 {
+    font-size: 1.25em;
+    color: #337ab7; /* Azul padrão do sistema */
+    margin-top: 0;
+    margin-bottom: 5px; 
+}
+
+.coordenador-section .event-item p {
+    font-size: 0.9em;
+    line-height: 1.4;
+    color: #555;
+    margin-top: 0;
+    margin-bottom: 4px; 
+}
+
+.coordenador-section .event-item p strong {
+    color: #333;
+    font-weight: 600;
+}
+
+.coordenador-section .event-item .event-desc {
+    font-style: italic;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+/* Container para o código de presença ou botão de gerar */
+.coordenador-section .event-item .codigo-container {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 6px;
+    font-size: 0.9em;
+    border: 1px solid #e0e0e0;
+}
+
+.coordenador-section .event-item .codigo-container p {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.coordenador-section .event-item .codigo-container strong { /* Para o texto "Código Presença:" */
+    color: #333;
+}
+.coordenador-section .event-item .codigo-container .codigo-valor { /* Para o valor do código em si */
+    font-weight: bold;
+    color: #28a745; /* Verde */
+    font-size: 1.1em;
+    background-color: #e6ffe6;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+
+.coordenador-section .btn-gerar-codigo {
+    background-color: #28a745; 
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.85em;
+    transition: background-color 0.3s ease;
+    /* align-self: flex-start; Removido para centralizar ou ocupar espaço no flex do .codigo-container p */
+}
+
+.coordenador-section .btn-gerar-codigo:hover {
+    background-color: #218838;
+}
+
+.coordenador-section .event-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    flex-wrap: wrap; 
+    align-items: center;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+}
+
+.coordenador-section .event-actions .btn-editar,
+.coordenador-section .event-actions .btn-presenca {
+    background-color: #7494ec; /* Azul padrão do sistema */
+    color: white;
+    padding: 8px 12px;
+    font-size: 0.85em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.coordenador-section .event-actions .btn-editar:hover,
+.coordenador-section .event-actions .btn-presenca:hover {
+    background-color: #5a7bd8;
+}
+
+.coordenador-section .no-events {
+    text-align: center;
+    color: #777;
+    padding: 20px;
+    font-style: italic;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+
+
+/* Estilo unificado para botões .btn-inscrever e .btn-download-certificado */
+.event-list .btn-inscrever, /* Mantém o estilo para btn-inscrever */
+.certificate-list .btn-download-certificado, 
+.event-actions .btn-confirmar-evento { /* Adicione quaisquer outros estilos responsivos ou específicos aqui */
+  background-color: #7494ec; /* Header blue */
+  color: #fff;
+  border: 1px solid #7494ec; /* Borda da mesma cor do fundo para consistência no hover */
+  padding: 10px 20px;
+  border-radius: 5px;
   cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
-.fechar-modal:hover {
-  color: #7494ec;
+.event-list .btn-inscrever:hover,
+.certificate-list .btn-download-certificado:hover {
+  background-color: #fff;
+  color: #7494ec; /* Header blue for text */
+  border-color: #7494ec; /* Header blue for border */
 }
 
 /* Estilos para a Lista de Presença */
@@ -438,29 +902,23 @@ main {
 .certificate-list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
 }
 
 .certificate-item {
-  background: #eee;
-  padding: 15px;
+  background-color: #ffffff;
+  padding: 20px;
   border-radius: 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border: 1px solid #e0e0e0;
 }
 
-.certificate-item button {
-  background: #7494ec;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 5px;
-  color: #fff;
-  cursor: pointer;
-}
-
-.certificate-item button:hover {
-  background: #5a7bd8;
+.certificate-item h3 {
+  font-size: 18px;
+  color: #333;
+  font-weight: 600;
 }
 
 /* Página do Coordenador */
@@ -552,6 +1010,331 @@ main {
 
 
 /* Responsividade */
+
+/* Styles for single form pages (Esqueci Senha, Redefinir Senha) */
+.container-single-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    padding: 20px;
+    background: linear-gradient(90deg, #e2e2e2, #c9d6ff); /* Match body background */
+}
+
+.container-single-form .form-box {
+    background: #fff;
+    padding: 40px;
+    border-radius: 15px !important; /* Reforçado para garantir a aplicação */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 500px; /* Largura máxima do formulário */
+    text-align: center; /* Centraliza o conteúdo interno como h1, p, inputs se forem inline-block */
+
+    /* Garantir a anulação completa dos estilos de .form-box original */
+    position: static;  /* Remove o posicionamento absoluto */
+    display: block;    /* Altera o tipo de display, o conteúdo interno será tratado pelo text-align ou fluxo normal */
+    height: auto;      /* Altura automática baseada no conteúdo */
+    margin: 0;         /* Remove margens que possam interferir na centralização pelo flex container pai */
+    right: auto;
+    bottom: auto;
+    z-index: auto;
+    transition: none;  /* Remove transições */
+    visibility: visible !important; /* Garante visibilidade, já estava presente */
+    color: #333; /* Mantém a cor do texto padrão */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    position: static; /* Override absolute positioning from original .form-box */
+    transition: none; /* Override transitions */
+    visibility: visible !important; /* Ensure it's always visible */
+    /* Resetting properties that might be inherited from the original .form-box complex layout */
+    right: auto;
+    bottom: auto;
+    height: auto;
+}
+
+.container-single-form .form-box h1 {
+    font-size: 28px;
+    margin-top: 0; /* Adjust margin for h1 */
+    margin-bottom: 25px;
+    color: #333;
+}
+
+.container-single-form .form-box p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.container-single-form .form-box p strong {
+    color: #333;
+    font-weight: 600;
+}
+
+.container-single-form .input-box {
+    margin: 25px 0; /* Adjust margin for better spacing */
+}
+
+.container-single-form .btn {
+    margin-top: 25px; /* Add margin above the button */
+}
+
+.container-single-form .form-box a.return-link {
+    font-size: 14px;
+    color: #555;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 20px;
+}
+
+.container-single-form .form-box a.return-link:hover {
+    color: #7494ec;
+    text-decoration: underline;
+}
+
+/* Responsive adjustments for single form pages */
+@media screen and (max-width: 600px) {
+    .container-single-form .form-box {
+        padding: 30px;
+    }
+    .container-single-form .form-box h1 {
+        font-size: 24px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .container-single-form .form-box {
+        padding: 20px;
+        border-radius: 10px;
+    }
+    .container-single-form .form-box h1 {
+        font-size: 22px;
+    }
+    .container-single-form .input-box input {
+        padding: 12px;
+        font-size: 15px;
+    }
+    .container-single-form .btn {
+        height: 45px;
+        font-size: 15px;
+    }
+}
+
+/* Estilos para o botão de Apagar Conta no Header */
+.btn-header-action {
+    padding: 8px 15px;
+    color: #fff;
+    background-color: #dc3545; /* Um vermelho para indicar perigo/deleção */
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-left: 10px; /* Espaçamento do link Sair */
+}
+
+.btn-header-action.sair-link {
+    background-color: #6c757d; /* Cinza para o Sair */
+}
+
+.btn-header-action:hover {
+    background-color: #c82333; /* Vermelho mais escuro no hover */
+}
+
+.btn-header-action.sair-link:hover {
+    background-color: #5a6268; /* Cinza mais escuro no hover */
+}
+
+
+/* Modal de Exclusão de Conta */
+.modal-delete-account {
+    display: none; /* Oculto por padrão, controlado por JS */
+    position: fixed;
+    z-index: 2000; /* Acima de outros elementos */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.6); /* Fundo escurecido */
+    justify-content: center;
+    align-items: center;
+    display: flex; /* Para centralizar o conteúdo do modal */
+}
+
+.modal-content-delete {
+    background-color: #fff;
+    margin: auto;
+    padding: 30px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 550px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    position: relative;
+    text-align: left;
+}
+
+.close-delete-modal-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+}
+
+.close-delete-modal-btn:hover,
+.close-delete-modal-btn:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-content-delete h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.modal-content-delete p {
+    margin-bottom: 15px;
+    line-height: 1.6;
+    color: #555;
+}
+
+.input-box-modal-delete input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.modal-delete-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.modal-delete-buttons .btn-cancel-delete,
+.modal-delete-buttons .btn-confirm-delete {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-cancel-delete {
+    background-color: #6c757d; /* Cinza */
+    color: white;
+}
+
+.btn-cancel-delete:hover {
+    background-color: #5a6268;
+}
+
+.btn-confirm-delete {
+    background-color: #dc3545; /* Vermelho */
+    color: white;
+}
+
+.btn-confirm-delete:hover {
+    background-color: #c82333;
+}
+
+/* Estilos da página do Coordenador/Diretor - Lista de Presença */
+#caixa-lista-presenca {
+    /* Herda estilos de .caixa, mas podemos adicionar específicos se necessário */
+    margin-top: 30px; /* Adiciona um espaço acima da caixa de presença */
+}
+
+#caixa-lista-presenca h2 {
+    margin-bottom: 20px; /* Espaço entre o título da caixa e a lista */
+    font-size: 22px; /* Ajuste conforme necessário */
+    color: #333;
+}
+
+#presenca-list-content .error-message {
+    color: #d9534f; /* Vermelho para erros */
+    font-weight: bold;
+    padding: 10px;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 4px;
+}
+
+#presenca-list-content .info-message {
+    color: #004085;
+    background-color: #cce5ff;
+    border: 1px solid #b8daff;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+.lista-presenca-alunos {
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: 10px; /* Espaço acima da lista */
+}
+
+.lista-presenca-alunos li {
+    padding: 12px 15px;
+    border: 1px solid #e8e8e8;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    background-color: #fdfdfd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Para responsividade se o conteúdo for grande */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    transition: background-color 0.2s ease-in-out;
+}
+
+.lista-presenca-alunos li:hover {
+    background-color: #f5f5f5;
+}
+
+.lista-presenca-alunos .aluno-nome {
+    font-weight: 600; /* Destaque para o nome */
+    color: #333;
+    flex-basis: 40%; /* Espaço para o nome */
+    min-width: 150px; /* Evita que o nome fique muito espremido */
+}
+
+.lista-presenca-alunos .aluno-email {
+    color: #555;
+    font-size: 0.9em;
+    flex-basis: 35%; /* Espaço para o email */
+    min-width: 180px;
+}
+
+.lista-presenca-alunos .aluno-status {
+    color: #28a745; /* Verde para status confirmado */
+    font-size: 0.9em;
+    font-style: italic;
+    font-weight: 500;
+    flex-basis: 20%; /* Espaço para o status */
+    text-align: right;
+    min-width: 100px;
+}
+
+
+
+/* Responsividade Original (para garantir que não foi removida) */
 
 @media screen and (max-width: 650px) {
   .container {
